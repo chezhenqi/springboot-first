@@ -1,0 +1,1447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.learn.springboot.mapper.LoanMapper" >
+  <resultMap id="BaseResultMap" type="com.learn.springboot.entity.Loan" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="borrower_id" property="borrowerId" jdbcType="VARCHAR" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="loan_purposes" property="loanPurposes" jdbcType="VARCHAR" />
+    <result column="project_description" property="projectDescription" jdbcType="VARCHAR" />
+    <result column="project_type" property="projectType" jdbcType="VARCHAR" />
+    <result column="loan_period" property="loanPeriod" jdbcType="INTEGER" />
+    <result column="lockup_period" property="lockupPeriod" jdbcType="INTEGER" />
+    <result column="repayment_way" property="repaymentWay" jdbcType="VARCHAR" />
+    <result column="loan_amount" property="loanAmount" jdbcType="DECIMAL" />
+    <result column="loan_rate" property="loanRate" jdbcType="DECIMAL" />
+    <result column="percent" property="percent" jdbcType="DECIMAL" />
+    <result column="has_mortgage" property="hasMortgage" jdbcType="BIT" />
+    <result column="min_number" property="minNumber" jdbcType="INTEGER" />
+    <result column="max_number" property="maxNumber" jdbcType="INTEGER" />
+    <result column="bid_award" property="bidAward" jdbcType="DECIMAL" />
+    <result column="overdue_days" property="overdueDays" jdbcType="INTEGER" />
+    <result column="loan_status" property="loanStatus" jdbcType="CHAR" />
+    <result column="recommend" property="recommend" jdbcType="BIT" />
+    <result column="project_image_path" property="projectImagePath" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="financing_days" property="financingDays" jdbcType="INTEGER" />
+    <result column="guarantee_company" property="guaranteeCompany" jdbcType="VARCHAR" />
+    <result column="guarantee_comment" property="guaranteeComment" jdbcType="VARCHAR" />
+    <result column="mortgage_info" property="mortgageInfo" jdbcType="VARCHAR" />
+    <result column="lawsuit_info" property="lawsuitInfo" jdbcType="VARCHAR" />
+    <result column="money_purpose" property="moneyPurpose" jdbcType="VARCHAR" />
+    <result column="repayment_source" property="repaymentSource" jdbcType="VARCHAR" />
+    <result column="enterprise_background" property="enterpriseBackground" jdbcType="VARCHAR" />
+    <result column="business_scope" property="businessScope" jdbcType="VARCHAR" />
+    <result column="operating_conditions" property="operatingConditions" jdbcType="VARCHAR" />
+    <result column="legal_name" property="legalName" jdbcType="VARCHAR" />
+    <result column="legal_id" property="legalId" jdbcType="VARCHAR" />
+    <result column="legal_no" property="legalNo" jdbcType="VARCHAR" />
+    <result column="begin_date" property="beginDate" jdbcType="TIMESTAMP" />
+    <result column="industry_type" property="industryType" jdbcType="VARCHAR" />
+    <result column="review_date" property="reviewDate" jdbcType="TIMESTAMP" />
+    <result column="credit_level" property="creditLevel" jdbcType="CHAR" />
+    <result column="parent_loan_id" property="parentLoanId" jdbcType="VARCHAR" />
+    <result column="payment_id" property="paymentId" jdbcType="VARCHAR" />
+    <result column="loan_type" property="loanType" jdbcType="CHAR" />
+    <result column="discount_amount" property="discountAmount" jdbcType="DECIMAL" />
+    <result column="manage_fee" property="manageFee" jdbcType="DECIMAL" />
+    <result column="loan_source_type_id" property="loanSourceTypeId" jdbcType="VARCHAR" />
+    <result column="loan_source_type" property="loanSourceType" jdbcType="INTEGER" />
+    <result column="borrow_company" property="borrowCompany" jdbcType="VARCHAR" />
+    <result column="borrow_address" property="borrowAddress" jdbcType="VARCHAR" />
+    <result column="borrow_mobile" property="borrowMobile" jdbcType="VARCHAR" />
+    <result column="edu_type" property="eduType" jdbcType="INTEGER" />
+    <result column="borrow_type" property="borrowType" jdbcType="INTEGER" />
+    <result column="income_type" property="incomeType" jdbcType="INTEGER" />
+    <result column="credit_limit" property="creditLimit" jdbcType="DECIMAL" />
+    <result column="married_type" property="marriedType" jdbcType="INTEGER" />
+    <result column="activity" property="activity" jdbcType="INTEGER" />
+    <result column="linkman" property="linkman" jdbcType="VARCHAR" />
+    <result column="ticket_rule" property="ticketRule" jdbcType="INTEGER" />
+    <result column="has_invest_security" property="hasInvestSecurity" jdbcType="BIT" />
+    <result column="ump_user_id" property="umpUserId" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="grant_date" property="grantDate" jdbcType="TIMESTAMP" />
+    <result column="hujinxh_product_code" property="hujinxhProductCode" jdbcType="VARCHAR" />
+    <result column="payment_count" property="paymentCount" jdbcType="INTEGER" />
+    <result column="day_rate" property="dayRate" jdbcType="DECIMAL" />
+    <result column="loan_amount_available" property="loanAmountAvailable" jdbcType="DECIMAL" />
+    <result column="drools_rules_id" property="droolsRulesId" jdbcType="VARCHAR" />
+    <result column="risk_warning" property="riskWarning" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.learn.springboot.entity.Loan" extends="BaseResultMap" >
+    <result column="risk_control_info" property="riskControlInfo" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, borrower_id, project_name, loan_purposes, project_description, project_type, 
+    loan_period, lockup_period, repayment_way, loan_amount, loan_rate, percent, has_mortgage, 
+    min_number, max_number, bid_award, overdue_days, loan_status, recommend, project_image_path, 
+    create_by, create_date, update_by, update_date, remarks, del_flag, financing_days, 
+    guarantee_company, guarantee_comment, mortgage_info, lawsuit_info, money_purpose, 
+    repayment_source, enterprise_background, business_scope, operating_conditions, legal_name, 
+    legal_id, legal_no, begin_date, industry_type, review_date, credit_level, parent_loan_id, 
+    payment_id, loan_type, discount_amount, manage_fee, loan_source_type_id, loan_source_type, 
+    borrow_company, borrow_address, borrow_mobile, edu_type, borrow_type, income_type, 
+    credit_limit, married_type, activity, linkman, ticket_rule, has_invest_security, 
+    ump_user_id, sort, grant_date, hujinxh_product_code, payment_count, day_rate, loan_amount_available, 
+    drools_rules_id, risk_warning
+  </sql>
+  <sql id="Blob_Column_List" >
+    risk_control_info
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.learn.springboot.entity.LoanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.learn.springboot.entity.LoanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from loan
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loan
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.learn.springboot.entity.LoanExample" >
+    delete from loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.learn.springboot.entity.Loan" >
+    insert into loan (id, borrower_id, project_name, 
+      loan_purposes, project_description, project_type, 
+      loan_period, lockup_period, repayment_way, 
+      loan_amount, loan_rate, percent, 
+      has_mortgage, min_number, max_number, 
+      bid_award, overdue_days, loan_status, 
+      recommend, project_image_path, create_by, 
+      create_date, update_by, update_date, 
+      remarks, del_flag, financing_days, 
+      guarantee_company, guarantee_comment, mortgage_info, 
+      lawsuit_info, money_purpose, repayment_source, 
+      enterprise_background, business_scope, operating_conditions, 
+      legal_name, legal_id, legal_no, 
+      begin_date, industry_type, review_date, 
+      credit_level, parent_loan_id, payment_id, 
+      loan_type, discount_amount, manage_fee, 
+      loan_source_type_id, loan_source_type, borrow_company, 
+      borrow_address, borrow_mobile, edu_type, 
+      borrow_type, income_type, credit_limit, 
+      married_type, activity, linkman, 
+      ticket_rule, has_invest_security, ump_user_id, 
+      sort, grant_date, hujinxh_product_code, 
+      payment_count, day_rate, loan_amount_available, 
+      drools_rules_id, risk_warning, risk_control_info
+      )
+    values (#{id,jdbcType=VARCHAR}, #{borrowerId,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, 
+      #{loanPurposes,jdbcType=VARCHAR}, #{projectDescription,jdbcType=VARCHAR}, #{projectType,jdbcType=VARCHAR}, 
+      #{loanPeriod,jdbcType=INTEGER}, #{lockupPeriod,jdbcType=INTEGER}, #{repaymentWay,jdbcType=VARCHAR}, 
+      #{loanAmount,jdbcType=DECIMAL}, #{loanRate,jdbcType=DECIMAL}, #{percent,jdbcType=DECIMAL}, 
+      #{hasMortgage,jdbcType=BIT}, #{minNumber,jdbcType=INTEGER}, #{maxNumber,jdbcType=INTEGER}, 
+      #{bidAward,jdbcType=DECIMAL}, #{overdueDays,jdbcType=INTEGER}, #{loanStatus,jdbcType=CHAR}, 
+      #{recommend,jdbcType=BIT}, #{projectImagePath,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, #{financingDays,jdbcType=INTEGER}, 
+      #{guaranteeCompany,jdbcType=VARCHAR}, #{guaranteeComment,jdbcType=VARCHAR}, #{mortgageInfo,jdbcType=VARCHAR}, 
+      #{lawsuitInfo,jdbcType=VARCHAR}, #{moneyPurpose,jdbcType=VARCHAR}, #{repaymentSource,jdbcType=VARCHAR}, 
+      #{enterpriseBackground,jdbcType=VARCHAR}, #{businessScope,jdbcType=VARCHAR}, #{operatingConditions,jdbcType=VARCHAR}, 
+      #{legalName,jdbcType=VARCHAR}, #{legalId,jdbcType=VARCHAR}, #{legalNo,jdbcType=VARCHAR}, 
+      #{beginDate,jdbcType=TIMESTAMP}, #{industryType,jdbcType=VARCHAR}, #{reviewDate,jdbcType=TIMESTAMP}, 
+      #{creditLevel,jdbcType=CHAR}, #{parentLoanId,jdbcType=VARCHAR}, #{paymentId,jdbcType=VARCHAR}, 
+      #{loanType,jdbcType=CHAR}, #{discountAmount,jdbcType=DECIMAL}, #{manageFee,jdbcType=DECIMAL}, 
+      #{loanSourceTypeId,jdbcType=VARCHAR}, #{loanSourceType,jdbcType=INTEGER}, #{borrowCompany,jdbcType=VARCHAR}, 
+      #{borrowAddress,jdbcType=VARCHAR}, #{borrowMobile,jdbcType=VARCHAR}, #{eduType,jdbcType=INTEGER}, 
+      #{borrowType,jdbcType=INTEGER}, #{incomeType,jdbcType=INTEGER}, #{creditLimit,jdbcType=DECIMAL}, 
+      #{marriedType,jdbcType=INTEGER}, #{activity,jdbcType=INTEGER}, #{linkman,jdbcType=VARCHAR}, 
+      #{ticketRule,jdbcType=INTEGER}, #{hasInvestSecurity,jdbcType=BIT}, #{umpUserId,jdbcType=VARCHAR}, 
+      #{sort,jdbcType=INTEGER}, #{grantDate,jdbcType=TIMESTAMP}, #{hujinxhProductCode,jdbcType=VARCHAR}, 
+      #{paymentCount,jdbcType=INTEGER}, #{dayRate,jdbcType=DECIMAL}, #{loanAmountAvailable,jdbcType=DECIMAL}, 
+      #{droolsRulesId,jdbcType=VARCHAR}, #{riskWarning,jdbcType=VARCHAR}, #{riskControlInfo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.learn.springboot.entity.Loan" >
+    insert into loan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="borrowerId != null" >
+        borrower_id,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="loanPurposes != null" >
+        loan_purposes,
+      </if>
+      <if test="projectDescription != null" >
+        project_description,
+      </if>
+      <if test="projectType != null" >
+        project_type,
+      </if>
+      <if test="loanPeriod != null" >
+        loan_period,
+      </if>
+      <if test="lockupPeriod != null" >
+        lockup_period,
+      </if>
+      <if test="repaymentWay != null" >
+        repayment_way,
+      </if>
+      <if test="loanAmount != null" >
+        loan_amount,
+      </if>
+      <if test="loanRate != null" >
+        loan_rate,
+      </if>
+      <if test="percent != null" >
+        percent,
+      </if>
+      <if test="hasMortgage != null" >
+        has_mortgage,
+      </if>
+      <if test="minNumber != null" >
+        min_number,
+      </if>
+      <if test="maxNumber != null" >
+        max_number,
+      </if>
+      <if test="bidAward != null" >
+        bid_award,
+      </if>
+      <if test="overdueDays != null" >
+        overdue_days,
+      </if>
+      <if test="loanStatus != null" >
+        loan_status,
+      </if>
+      <if test="recommend != null" >
+        recommend,
+      </if>
+      <if test="projectImagePath != null" >
+        project_image_path,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="financingDays != null" >
+        financing_days,
+      </if>
+      <if test="guaranteeCompany != null" >
+        guarantee_company,
+      </if>
+      <if test="guaranteeComment != null" >
+        guarantee_comment,
+      </if>
+      <if test="mortgageInfo != null" >
+        mortgage_info,
+      </if>
+      <if test="lawsuitInfo != null" >
+        lawsuit_info,
+      </if>
+      <if test="moneyPurpose != null" >
+        money_purpose,
+      </if>
+      <if test="repaymentSource != null" >
+        repayment_source,
+      </if>
+      <if test="enterpriseBackground != null" >
+        enterprise_background,
+      </if>
+      <if test="businessScope != null" >
+        business_scope,
+      </if>
+      <if test="operatingConditions != null" >
+        operating_conditions,
+      </if>
+      <if test="legalName != null" >
+        legal_name,
+      </if>
+      <if test="legalId != null" >
+        legal_id,
+      </if>
+      <if test="legalNo != null" >
+        legal_no,
+      </if>
+      <if test="beginDate != null" >
+        begin_date,
+      </if>
+      <if test="industryType != null" >
+        industry_type,
+      </if>
+      <if test="reviewDate != null" >
+        review_date,
+      </if>
+      <if test="creditLevel != null" >
+        credit_level,
+      </if>
+      <if test="parentLoanId != null" >
+        parent_loan_id,
+      </if>
+      <if test="paymentId != null" >
+        payment_id,
+      </if>
+      <if test="loanType != null" >
+        loan_type,
+      </if>
+      <if test="discountAmount != null" >
+        discount_amount,
+      </if>
+      <if test="manageFee != null" >
+        manage_fee,
+      </if>
+      <if test="loanSourceTypeId != null" >
+        loan_source_type_id,
+      </if>
+      <if test="loanSourceType != null" >
+        loan_source_type,
+      </if>
+      <if test="borrowCompany != null" >
+        borrow_company,
+      </if>
+      <if test="borrowAddress != null" >
+        borrow_address,
+      </if>
+      <if test="borrowMobile != null" >
+        borrow_mobile,
+      </if>
+      <if test="eduType != null" >
+        edu_type,
+      </if>
+      <if test="borrowType != null" >
+        borrow_type,
+      </if>
+      <if test="incomeType != null" >
+        income_type,
+      </if>
+      <if test="creditLimit != null" >
+        credit_limit,
+      </if>
+      <if test="marriedType != null" >
+        married_type,
+      </if>
+      <if test="activity != null" >
+        activity,
+      </if>
+      <if test="linkman != null" >
+        linkman,
+      </if>
+      <if test="ticketRule != null" >
+        ticket_rule,
+      </if>
+      <if test="hasInvestSecurity != null" >
+        has_invest_security,
+      </if>
+      <if test="umpUserId != null" >
+        ump_user_id,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="grantDate != null" >
+        grant_date,
+      </if>
+      <if test="hujinxhProductCode != null" >
+        hujinxh_product_code,
+      </if>
+      <if test="paymentCount != null" >
+        payment_count,
+      </if>
+      <if test="dayRate != null" >
+        day_rate,
+      </if>
+      <if test="loanAmountAvailable != null" >
+        loan_amount_available,
+      </if>
+      <if test="droolsRulesId != null" >
+        drools_rules_id,
+      </if>
+      <if test="riskWarning != null" >
+        risk_warning,
+      </if>
+      <if test="riskControlInfo != null" >
+        risk_control_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowerId != null" >
+        #{borrowerId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="loanPurposes != null" >
+        #{loanPurposes,jdbcType=VARCHAR},
+      </if>
+      <if test="projectDescription != null" >
+        #{projectDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="projectType != null" >
+        #{projectType,jdbcType=VARCHAR},
+      </if>
+      <if test="loanPeriod != null" >
+        #{loanPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="lockupPeriod != null" >
+        #{lockupPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="repaymentWay != null" >
+        #{repaymentWay,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAmount != null" >
+        #{loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="loanRate != null" >
+        #{loanRate,jdbcType=DECIMAL},
+      </if>
+      <if test="percent != null" >
+        #{percent,jdbcType=DECIMAL},
+      </if>
+      <if test="hasMortgage != null" >
+        #{hasMortgage,jdbcType=BIT},
+      </if>
+      <if test="minNumber != null" >
+        #{minNumber,jdbcType=INTEGER},
+      </if>
+      <if test="maxNumber != null" >
+        #{maxNumber,jdbcType=INTEGER},
+      </if>
+      <if test="bidAward != null" >
+        #{bidAward,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueDays != null" >
+        #{overdueDays,jdbcType=INTEGER},
+      </if>
+      <if test="loanStatus != null" >
+        #{loanStatus,jdbcType=CHAR},
+      </if>
+      <if test="recommend != null" >
+        #{recommend,jdbcType=BIT},
+      </if>
+      <if test="projectImagePath != null" >
+        #{projectImagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="financingDays != null" >
+        #{financingDays,jdbcType=INTEGER},
+      </if>
+      <if test="guaranteeCompany != null" >
+        #{guaranteeCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="guaranteeComment != null" >
+        #{guaranteeComment,jdbcType=VARCHAR},
+      </if>
+      <if test="mortgageInfo != null" >
+        #{mortgageInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="lawsuitInfo != null" >
+        #{lawsuitInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyPurpose != null" >
+        #{moneyPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentSource != null" >
+        #{repaymentSource,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseBackground != null" >
+        #{enterpriseBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="operatingConditions != null" >
+        #{operatingConditions,jdbcType=VARCHAR},
+      </if>
+      <if test="legalName != null" >
+        #{legalName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalId != null" >
+        #{legalId,jdbcType=VARCHAR},
+      </if>
+      <if test="legalNo != null" >
+        #{legalNo,jdbcType=VARCHAR},
+      </if>
+      <if test="beginDate != null" >
+        #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="industryType != null" >
+        #{industryType,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewDate != null" >
+        #{reviewDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creditLevel != null" >
+        #{creditLevel,jdbcType=CHAR},
+      </if>
+      <if test="parentLoanId != null" >
+        #{parentLoanId,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentId != null" >
+        #{paymentId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanType != null" >
+        #{loanType,jdbcType=CHAR},
+      </if>
+      <if test="discountAmount != null" >
+        #{discountAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="manageFee != null" >
+        #{manageFee,jdbcType=DECIMAL},
+      </if>
+      <if test="loanSourceTypeId != null" >
+        #{loanSourceTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanSourceType != null" >
+        #{loanSourceType,jdbcType=INTEGER},
+      </if>
+      <if test="borrowCompany != null" >
+        #{borrowCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowAddress != null" >
+        #{borrowAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowMobile != null" >
+        #{borrowMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="eduType != null" >
+        #{eduType,jdbcType=INTEGER},
+      </if>
+      <if test="borrowType != null" >
+        #{borrowType,jdbcType=INTEGER},
+      </if>
+      <if test="incomeType != null" >
+        #{incomeType,jdbcType=INTEGER},
+      </if>
+      <if test="creditLimit != null" >
+        #{creditLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="marriedType != null" >
+        #{marriedType,jdbcType=INTEGER},
+      </if>
+      <if test="activity != null" >
+        #{activity,jdbcType=INTEGER},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketRule != null" >
+        #{ticketRule,jdbcType=INTEGER},
+      </if>
+      <if test="hasInvestSecurity != null" >
+        #{hasInvestSecurity,jdbcType=BIT},
+      </if>
+      <if test="umpUserId != null" >
+        #{umpUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="grantDate != null" >
+        #{grantDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hujinxhProductCode != null" >
+        #{hujinxhProductCode,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentCount != null" >
+        #{paymentCount,jdbcType=INTEGER},
+      </if>
+      <if test="dayRate != null" >
+        #{dayRate,jdbcType=DECIMAL},
+      </if>
+      <if test="loanAmountAvailable != null" >
+        #{loanAmountAvailable,jdbcType=DECIMAL},
+      </if>
+      <if test="droolsRulesId != null" >
+        #{droolsRulesId,jdbcType=VARCHAR},
+      </if>
+      <if test="riskWarning != null" >
+        #{riskWarning,jdbcType=VARCHAR},
+      </if>
+      <if test="riskControlInfo != null" >
+        #{riskControlInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.learn.springboot.entity.LoanExample" resultType="java.lang.Integer" >
+    select count(*) from loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update loan
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowerId != null" >
+        borrower_id = #{record.borrowerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectName != null" >
+        project_name = #{record.projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanPurposes != null" >
+        loan_purposes = #{record.loanPurposes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectDescription != null" >
+        project_description = #{record.projectDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectType != null" >
+        project_type = #{record.projectType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanPeriod != null" >
+        loan_period = #{record.loanPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="record.lockupPeriod != null" >
+        lockup_period = #{record.lockupPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="record.repaymentWay != null" >
+        repayment_way = #{record.repaymentWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanAmount != null" >
+        loan_amount = #{record.loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.loanRate != null" >
+        loan_rate = #{record.loanRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.percent != null" >
+        percent = #{record.percent,jdbcType=DECIMAL},
+      </if>
+      <if test="record.hasMortgage != null" >
+        has_mortgage = #{record.hasMortgage,jdbcType=BIT},
+      </if>
+      <if test="record.minNumber != null" >
+        min_number = #{record.minNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxNumber != null" >
+        max_number = #{record.maxNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.bidAward != null" >
+        bid_award = #{record.bidAward,jdbcType=DECIMAL},
+      </if>
+      <if test="record.overdueDays != null" >
+        overdue_days = #{record.overdueDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.loanStatus != null" >
+        loan_status = #{record.loanStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.recommend != null" >
+        recommend = #{record.recommend,jdbcType=BIT},
+      </if>
+      <if test="record.projectImagePath != null" >
+        project_image_path = #{record.projectImagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null" >
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null" >
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null" >
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delFlag != null" >
+        del_flag = #{record.delFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.financingDays != null" >
+        financing_days = #{record.financingDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.guaranteeCompany != null" >
+        guarantee_company = #{record.guaranteeCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guaranteeComment != null" >
+        guarantee_comment = #{record.guaranteeComment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mortgageInfo != null" >
+        mortgage_info = #{record.mortgageInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lawsuitInfo != null" >
+        lawsuit_info = #{record.lawsuitInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moneyPurpose != null" >
+        money_purpose = #{record.moneyPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repaymentSource != null" >
+        repayment_source = #{record.repaymentSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseBackground != null" >
+        enterprise_background = #{record.enterpriseBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessScope != null" >
+        business_scope = #{record.businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatingConditions != null" >
+        operating_conditions = #{record.operatingConditions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalName != null" >
+        legal_name = #{record.legalName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalId != null" >
+        legal_id = #{record.legalId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalNo != null" >
+        legal_no = #{record.legalNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginDate != null" >
+        begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.industryType != null" >
+        industry_type = #{record.industryType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reviewDate != null" >
+        review_date = #{record.reviewDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creditLevel != null" >
+        credit_level = #{record.creditLevel,jdbcType=CHAR},
+      </if>
+      <if test="record.parentLoanId != null" >
+        parent_loan_id = #{record.parentLoanId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentId != null" >
+        payment_id = #{record.paymentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanType != null" >
+        loan_type = #{record.loanType,jdbcType=CHAR},
+      </if>
+      <if test="record.discountAmount != null" >
+        discount_amount = #{record.discountAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.manageFee != null" >
+        manage_fee = #{record.manageFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.loanSourceTypeId != null" >
+        loan_source_type_id = #{record.loanSourceTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanSourceType != null" >
+        loan_source_type = #{record.loanSourceType,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowCompany != null" >
+        borrow_company = #{record.borrowCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowAddress != null" >
+        borrow_address = #{record.borrowAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowMobile != null" >
+        borrow_mobile = #{record.borrowMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eduType != null" >
+        edu_type = #{record.eduType,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowType != null" >
+        borrow_type = #{record.borrowType,jdbcType=INTEGER},
+      </if>
+      <if test="record.incomeType != null" >
+        income_type = #{record.incomeType,jdbcType=INTEGER},
+      </if>
+      <if test="record.creditLimit != null" >
+        credit_limit = #{record.creditLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.marriedType != null" >
+        married_type = #{record.marriedType,jdbcType=INTEGER},
+      </if>
+      <if test="record.activity != null" >
+        activity = #{record.activity,jdbcType=INTEGER},
+      </if>
+      <if test="record.linkman != null" >
+        linkman = #{record.linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ticketRule != null" >
+        ticket_rule = #{record.ticketRule,jdbcType=INTEGER},
+      </if>
+      <if test="record.hasInvestSecurity != null" >
+        has_invest_security = #{record.hasInvestSecurity,jdbcType=BIT},
+      </if>
+      <if test="record.umpUserId != null" >
+        ump_user_id = #{record.umpUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null" >
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.grantDate != null" >
+        grant_date = #{record.grantDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hujinxhProductCode != null" >
+        hujinxh_product_code = #{record.hujinxhProductCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentCount != null" >
+        payment_count = #{record.paymentCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.dayRate != null" >
+        day_rate = #{record.dayRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.loanAmountAvailable != null" >
+        loan_amount_available = #{record.loanAmountAvailable,jdbcType=DECIMAL},
+      </if>
+      <if test="record.droolsRulesId != null" >
+        drools_rules_id = #{record.droolsRulesId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskWarning != null" >
+        risk_warning = #{record.riskWarning,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskControlInfo != null" >
+        risk_control_info = #{record.riskControlInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update loan
+    set id = #{record.id,jdbcType=VARCHAR},
+      borrower_id = #{record.borrowerId,jdbcType=VARCHAR},
+      project_name = #{record.projectName,jdbcType=VARCHAR},
+      loan_purposes = #{record.loanPurposes,jdbcType=VARCHAR},
+      project_description = #{record.projectDescription,jdbcType=VARCHAR},
+      project_type = #{record.projectType,jdbcType=VARCHAR},
+      loan_period = #{record.loanPeriod,jdbcType=INTEGER},
+      lockup_period = #{record.lockupPeriod,jdbcType=INTEGER},
+      repayment_way = #{record.repaymentWay,jdbcType=VARCHAR},
+      loan_amount = #{record.loanAmount,jdbcType=DECIMAL},
+      loan_rate = #{record.loanRate,jdbcType=DECIMAL},
+      percent = #{record.percent,jdbcType=DECIMAL},
+      has_mortgage = #{record.hasMortgage,jdbcType=BIT},
+      min_number = #{record.minNumber,jdbcType=INTEGER},
+      max_number = #{record.maxNumber,jdbcType=INTEGER},
+      bid_award = #{record.bidAward,jdbcType=DECIMAL},
+      overdue_days = #{record.overdueDays,jdbcType=INTEGER},
+      loan_status = #{record.loanStatus,jdbcType=CHAR},
+      recommend = #{record.recommend,jdbcType=BIT},
+      project_image_path = #{record.projectImagePath,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      del_flag = #{record.delFlag,jdbcType=CHAR},
+      financing_days = #{record.financingDays,jdbcType=INTEGER},
+      guarantee_company = #{record.guaranteeCompany,jdbcType=VARCHAR},
+      guarantee_comment = #{record.guaranteeComment,jdbcType=VARCHAR},
+      mortgage_info = #{record.mortgageInfo,jdbcType=VARCHAR},
+      lawsuit_info = #{record.lawsuitInfo,jdbcType=VARCHAR},
+      money_purpose = #{record.moneyPurpose,jdbcType=VARCHAR},
+      repayment_source = #{record.repaymentSource,jdbcType=VARCHAR},
+      enterprise_background = #{record.enterpriseBackground,jdbcType=VARCHAR},
+      business_scope = #{record.businessScope,jdbcType=VARCHAR},
+      operating_conditions = #{record.operatingConditions,jdbcType=VARCHAR},
+      legal_name = #{record.legalName,jdbcType=VARCHAR},
+      legal_id = #{record.legalId,jdbcType=VARCHAR},
+      legal_no = #{record.legalNo,jdbcType=VARCHAR},
+      begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
+      industry_type = #{record.industryType,jdbcType=VARCHAR},
+      review_date = #{record.reviewDate,jdbcType=TIMESTAMP},
+      credit_level = #{record.creditLevel,jdbcType=CHAR},
+      parent_loan_id = #{record.parentLoanId,jdbcType=VARCHAR},
+      payment_id = #{record.paymentId,jdbcType=VARCHAR},
+      loan_type = #{record.loanType,jdbcType=CHAR},
+      discount_amount = #{record.discountAmount,jdbcType=DECIMAL},
+      manage_fee = #{record.manageFee,jdbcType=DECIMAL},
+      loan_source_type_id = #{record.loanSourceTypeId,jdbcType=VARCHAR},
+      loan_source_type = #{record.loanSourceType,jdbcType=INTEGER},
+      borrow_company = #{record.borrowCompany,jdbcType=VARCHAR},
+      borrow_address = #{record.borrowAddress,jdbcType=VARCHAR},
+      borrow_mobile = #{record.borrowMobile,jdbcType=VARCHAR},
+      edu_type = #{record.eduType,jdbcType=INTEGER},
+      borrow_type = #{record.borrowType,jdbcType=INTEGER},
+      income_type = #{record.incomeType,jdbcType=INTEGER},
+      credit_limit = #{record.creditLimit,jdbcType=DECIMAL},
+      married_type = #{record.marriedType,jdbcType=INTEGER},
+      activity = #{record.activity,jdbcType=INTEGER},
+      linkman = #{record.linkman,jdbcType=VARCHAR},
+      ticket_rule = #{record.ticketRule,jdbcType=INTEGER},
+      has_invest_security = #{record.hasInvestSecurity,jdbcType=BIT},
+      ump_user_id = #{record.umpUserId,jdbcType=VARCHAR},
+      sort = #{record.sort,jdbcType=INTEGER},
+      grant_date = #{record.grantDate,jdbcType=TIMESTAMP},
+      hujinxh_product_code = #{record.hujinxhProductCode,jdbcType=VARCHAR},
+      payment_count = #{record.paymentCount,jdbcType=INTEGER},
+      day_rate = #{record.dayRate,jdbcType=DECIMAL},
+      loan_amount_available = #{record.loanAmountAvailable,jdbcType=DECIMAL},
+      drools_rules_id = #{record.droolsRulesId,jdbcType=VARCHAR},
+      risk_warning = #{record.riskWarning,jdbcType=VARCHAR},
+      risk_control_info = #{record.riskControlInfo,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update loan
+    set id = #{record.id,jdbcType=VARCHAR},
+      borrower_id = #{record.borrowerId,jdbcType=VARCHAR},
+      project_name = #{record.projectName,jdbcType=VARCHAR},
+      loan_purposes = #{record.loanPurposes,jdbcType=VARCHAR},
+      project_description = #{record.projectDescription,jdbcType=VARCHAR},
+      project_type = #{record.projectType,jdbcType=VARCHAR},
+      loan_period = #{record.loanPeriod,jdbcType=INTEGER},
+      lockup_period = #{record.lockupPeriod,jdbcType=INTEGER},
+      repayment_way = #{record.repaymentWay,jdbcType=VARCHAR},
+      loan_amount = #{record.loanAmount,jdbcType=DECIMAL},
+      loan_rate = #{record.loanRate,jdbcType=DECIMAL},
+      percent = #{record.percent,jdbcType=DECIMAL},
+      has_mortgage = #{record.hasMortgage,jdbcType=BIT},
+      min_number = #{record.minNumber,jdbcType=INTEGER},
+      max_number = #{record.maxNumber,jdbcType=INTEGER},
+      bid_award = #{record.bidAward,jdbcType=DECIMAL},
+      overdue_days = #{record.overdueDays,jdbcType=INTEGER},
+      loan_status = #{record.loanStatus,jdbcType=CHAR},
+      recommend = #{record.recommend,jdbcType=BIT},
+      project_image_path = #{record.projectImagePath,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      del_flag = #{record.delFlag,jdbcType=CHAR},
+      financing_days = #{record.financingDays,jdbcType=INTEGER},
+      guarantee_company = #{record.guaranteeCompany,jdbcType=VARCHAR},
+      guarantee_comment = #{record.guaranteeComment,jdbcType=VARCHAR},
+      mortgage_info = #{record.mortgageInfo,jdbcType=VARCHAR},
+      lawsuit_info = #{record.lawsuitInfo,jdbcType=VARCHAR},
+      money_purpose = #{record.moneyPurpose,jdbcType=VARCHAR},
+      repayment_source = #{record.repaymentSource,jdbcType=VARCHAR},
+      enterprise_background = #{record.enterpriseBackground,jdbcType=VARCHAR},
+      business_scope = #{record.businessScope,jdbcType=VARCHAR},
+      operating_conditions = #{record.operatingConditions,jdbcType=VARCHAR},
+      legal_name = #{record.legalName,jdbcType=VARCHAR},
+      legal_id = #{record.legalId,jdbcType=VARCHAR},
+      legal_no = #{record.legalNo,jdbcType=VARCHAR},
+      begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
+      industry_type = #{record.industryType,jdbcType=VARCHAR},
+      review_date = #{record.reviewDate,jdbcType=TIMESTAMP},
+      credit_level = #{record.creditLevel,jdbcType=CHAR},
+      parent_loan_id = #{record.parentLoanId,jdbcType=VARCHAR},
+      payment_id = #{record.paymentId,jdbcType=VARCHAR},
+      loan_type = #{record.loanType,jdbcType=CHAR},
+      discount_amount = #{record.discountAmount,jdbcType=DECIMAL},
+      manage_fee = #{record.manageFee,jdbcType=DECIMAL},
+      loan_source_type_id = #{record.loanSourceTypeId,jdbcType=VARCHAR},
+      loan_source_type = #{record.loanSourceType,jdbcType=INTEGER},
+      borrow_company = #{record.borrowCompany,jdbcType=VARCHAR},
+      borrow_address = #{record.borrowAddress,jdbcType=VARCHAR},
+      borrow_mobile = #{record.borrowMobile,jdbcType=VARCHAR},
+      edu_type = #{record.eduType,jdbcType=INTEGER},
+      borrow_type = #{record.borrowType,jdbcType=INTEGER},
+      income_type = #{record.incomeType,jdbcType=INTEGER},
+      credit_limit = #{record.creditLimit,jdbcType=DECIMAL},
+      married_type = #{record.marriedType,jdbcType=INTEGER},
+      activity = #{record.activity,jdbcType=INTEGER},
+      linkman = #{record.linkman,jdbcType=VARCHAR},
+      ticket_rule = #{record.ticketRule,jdbcType=INTEGER},
+      has_invest_security = #{record.hasInvestSecurity,jdbcType=BIT},
+      ump_user_id = #{record.umpUserId,jdbcType=VARCHAR},
+      sort = #{record.sort,jdbcType=INTEGER},
+      grant_date = #{record.grantDate,jdbcType=TIMESTAMP},
+      hujinxh_product_code = #{record.hujinxhProductCode,jdbcType=VARCHAR},
+      payment_count = #{record.paymentCount,jdbcType=INTEGER},
+      day_rate = #{record.dayRate,jdbcType=DECIMAL},
+      loan_amount_available = #{record.loanAmountAvailable,jdbcType=DECIMAL},
+      drools_rules_id = #{record.droolsRulesId,jdbcType=VARCHAR},
+      risk_warning = #{record.riskWarning,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.learn.springboot.entity.Loan" >
+    update loan
+    <set >
+      <if test="borrowerId != null" >
+        borrower_id = #{borrowerId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="loanPurposes != null" >
+        loan_purposes = #{loanPurposes,jdbcType=VARCHAR},
+      </if>
+      <if test="projectDescription != null" >
+        project_description = #{projectDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="projectType != null" >
+        project_type = #{projectType,jdbcType=VARCHAR},
+      </if>
+      <if test="loanPeriod != null" >
+        loan_period = #{loanPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="lockupPeriod != null" >
+        lockup_period = #{lockupPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="repaymentWay != null" >
+        repayment_way = #{repaymentWay,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAmount != null" >
+        loan_amount = #{loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="loanRate != null" >
+        loan_rate = #{loanRate,jdbcType=DECIMAL},
+      </if>
+      <if test="percent != null" >
+        percent = #{percent,jdbcType=DECIMAL},
+      </if>
+      <if test="hasMortgage != null" >
+        has_mortgage = #{hasMortgage,jdbcType=BIT},
+      </if>
+      <if test="minNumber != null" >
+        min_number = #{minNumber,jdbcType=INTEGER},
+      </if>
+      <if test="maxNumber != null" >
+        max_number = #{maxNumber,jdbcType=INTEGER},
+      </if>
+      <if test="bidAward != null" >
+        bid_award = #{bidAward,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueDays != null" >
+        overdue_days = #{overdueDays,jdbcType=INTEGER},
+      </if>
+      <if test="loanStatus != null" >
+        loan_status = #{loanStatus,jdbcType=CHAR},
+      </if>
+      <if test="recommend != null" >
+        recommend = #{recommend,jdbcType=BIT},
+      </if>
+      <if test="projectImagePath != null" >
+        project_image_path = #{projectImagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="financingDays != null" >
+        financing_days = #{financingDays,jdbcType=INTEGER},
+      </if>
+      <if test="guaranteeCompany != null" >
+        guarantee_company = #{guaranteeCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="guaranteeComment != null" >
+        guarantee_comment = #{guaranteeComment,jdbcType=VARCHAR},
+      </if>
+      <if test="mortgageInfo != null" >
+        mortgage_info = #{mortgageInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="lawsuitInfo != null" >
+        lawsuit_info = #{lawsuitInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyPurpose != null" >
+        money_purpose = #{moneyPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentSource != null" >
+        repayment_source = #{repaymentSource,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseBackground != null" >
+        enterprise_background = #{enterpriseBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        business_scope = #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="operatingConditions != null" >
+        operating_conditions = #{operatingConditions,jdbcType=VARCHAR},
+      </if>
+      <if test="legalName != null" >
+        legal_name = #{legalName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalId != null" >
+        legal_id = #{legalId,jdbcType=VARCHAR},
+      </if>
+      <if test="legalNo != null" >
+        legal_no = #{legalNo,jdbcType=VARCHAR},
+      </if>
+      <if test="beginDate != null" >
+        begin_date = #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="industryType != null" >
+        industry_type = #{industryType,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewDate != null" >
+        review_date = #{reviewDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creditLevel != null" >
+        credit_level = #{creditLevel,jdbcType=CHAR},
+      </if>
+      <if test="parentLoanId != null" >
+        parent_loan_id = #{parentLoanId,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentId != null" >
+        payment_id = #{paymentId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanType != null" >
+        loan_type = #{loanType,jdbcType=CHAR},
+      </if>
+      <if test="discountAmount != null" >
+        discount_amount = #{discountAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="manageFee != null" >
+        manage_fee = #{manageFee,jdbcType=DECIMAL},
+      </if>
+      <if test="loanSourceTypeId != null" >
+        loan_source_type_id = #{loanSourceTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanSourceType != null" >
+        loan_source_type = #{loanSourceType,jdbcType=INTEGER},
+      </if>
+      <if test="borrowCompany != null" >
+        borrow_company = #{borrowCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowAddress != null" >
+        borrow_address = #{borrowAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowMobile != null" >
+        borrow_mobile = #{borrowMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="eduType != null" >
+        edu_type = #{eduType,jdbcType=INTEGER},
+      </if>
+      <if test="borrowType != null" >
+        borrow_type = #{borrowType,jdbcType=INTEGER},
+      </if>
+      <if test="incomeType != null" >
+        income_type = #{incomeType,jdbcType=INTEGER},
+      </if>
+      <if test="creditLimit != null" >
+        credit_limit = #{creditLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="marriedType != null" >
+        married_type = #{marriedType,jdbcType=INTEGER},
+      </if>
+      <if test="activity != null" >
+        activity = #{activity,jdbcType=INTEGER},
+      </if>
+      <if test="linkman != null" >
+        linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketRule != null" >
+        ticket_rule = #{ticketRule,jdbcType=INTEGER},
+      </if>
+      <if test="hasInvestSecurity != null" >
+        has_invest_security = #{hasInvestSecurity,jdbcType=BIT},
+      </if>
+      <if test="umpUserId != null" >
+        ump_user_id = #{umpUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="grantDate != null" >
+        grant_date = #{grantDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hujinxhProductCode != null" >
+        hujinxh_product_code = #{hujinxhProductCode,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentCount != null" >
+        payment_count = #{paymentCount,jdbcType=INTEGER},
+      </if>
+      <if test="dayRate != null" >
+        day_rate = #{dayRate,jdbcType=DECIMAL},
+      </if>
+      <if test="loanAmountAvailable != null" >
+        loan_amount_available = #{loanAmountAvailable,jdbcType=DECIMAL},
+      </if>
+      <if test="droolsRulesId != null" >
+        drools_rules_id = #{droolsRulesId,jdbcType=VARCHAR},
+      </if>
+      <if test="riskWarning != null" >
+        risk_warning = #{riskWarning,jdbcType=VARCHAR},
+      </if>
+      <if test="riskControlInfo != null" >
+        risk_control_info = #{riskControlInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.learn.springboot.entity.Loan" >
+    update loan
+    set borrower_id = #{borrowerId,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      loan_purposes = #{loanPurposes,jdbcType=VARCHAR},
+      project_description = #{projectDescription,jdbcType=VARCHAR},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      loan_period = #{loanPeriod,jdbcType=INTEGER},
+      lockup_period = #{lockupPeriod,jdbcType=INTEGER},
+      repayment_way = #{repaymentWay,jdbcType=VARCHAR},
+      loan_amount = #{loanAmount,jdbcType=DECIMAL},
+      loan_rate = #{loanRate,jdbcType=DECIMAL},
+      percent = #{percent,jdbcType=DECIMAL},
+      has_mortgage = #{hasMortgage,jdbcType=BIT},
+      min_number = #{minNumber,jdbcType=INTEGER},
+      max_number = #{maxNumber,jdbcType=INTEGER},
+      bid_award = #{bidAward,jdbcType=DECIMAL},
+      overdue_days = #{overdueDays,jdbcType=INTEGER},
+      loan_status = #{loanStatus,jdbcType=CHAR},
+      recommend = #{recommend,jdbcType=BIT},
+      project_image_path = #{projectImagePath,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      financing_days = #{financingDays,jdbcType=INTEGER},
+      guarantee_company = #{guaranteeCompany,jdbcType=VARCHAR},
+      guarantee_comment = #{guaranteeComment,jdbcType=VARCHAR},
+      mortgage_info = #{mortgageInfo,jdbcType=VARCHAR},
+      lawsuit_info = #{lawsuitInfo,jdbcType=VARCHAR},
+      money_purpose = #{moneyPurpose,jdbcType=VARCHAR},
+      repayment_source = #{repaymentSource,jdbcType=VARCHAR},
+      enterprise_background = #{enterpriseBackground,jdbcType=VARCHAR},
+      business_scope = #{businessScope,jdbcType=VARCHAR},
+      operating_conditions = #{operatingConditions,jdbcType=VARCHAR},
+      legal_name = #{legalName,jdbcType=VARCHAR},
+      legal_id = #{legalId,jdbcType=VARCHAR},
+      legal_no = #{legalNo,jdbcType=VARCHAR},
+      begin_date = #{beginDate,jdbcType=TIMESTAMP},
+      industry_type = #{industryType,jdbcType=VARCHAR},
+      review_date = #{reviewDate,jdbcType=TIMESTAMP},
+      credit_level = #{creditLevel,jdbcType=CHAR},
+      parent_loan_id = #{parentLoanId,jdbcType=VARCHAR},
+      payment_id = #{paymentId,jdbcType=VARCHAR},
+      loan_type = #{loanType,jdbcType=CHAR},
+      discount_amount = #{discountAmount,jdbcType=DECIMAL},
+      manage_fee = #{manageFee,jdbcType=DECIMAL},
+      loan_source_type_id = #{loanSourceTypeId,jdbcType=VARCHAR},
+      loan_source_type = #{loanSourceType,jdbcType=INTEGER},
+      borrow_company = #{borrowCompany,jdbcType=VARCHAR},
+      borrow_address = #{borrowAddress,jdbcType=VARCHAR},
+      borrow_mobile = #{borrowMobile,jdbcType=VARCHAR},
+      edu_type = #{eduType,jdbcType=INTEGER},
+      borrow_type = #{borrowType,jdbcType=INTEGER},
+      income_type = #{incomeType,jdbcType=INTEGER},
+      credit_limit = #{creditLimit,jdbcType=DECIMAL},
+      married_type = #{marriedType,jdbcType=INTEGER},
+      activity = #{activity,jdbcType=INTEGER},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      ticket_rule = #{ticketRule,jdbcType=INTEGER},
+      has_invest_security = #{hasInvestSecurity,jdbcType=BIT},
+      ump_user_id = #{umpUserId,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      grant_date = #{grantDate,jdbcType=TIMESTAMP},
+      hujinxh_product_code = #{hujinxhProductCode,jdbcType=VARCHAR},
+      payment_count = #{paymentCount,jdbcType=INTEGER},
+      day_rate = #{dayRate,jdbcType=DECIMAL},
+      loan_amount_available = #{loanAmountAvailable,jdbcType=DECIMAL},
+      drools_rules_id = #{droolsRulesId,jdbcType=VARCHAR},
+      risk_warning = #{riskWarning,jdbcType=VARCHAR},
+      risk_control_info = #{riskControlInfo,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.learn.springboot.entity.Loan" >
+    update loan
+    set borrower_id = #{borrowerId,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      loan_purposes = #{loanPurposes,jdbcType=VARCHAR},
+      project_description = #{projectDescription,jdbcType=VARCHAR},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      loan_period = #{loanPeriod,jdbcType=INTEGER},
+      lockup_period = #{lockupPeriod,jdbcType=INTEGER},
+      repayment_way = #{repaymentWay,jdbcType=VARCHAR},
+      loan_amount = #{loanAmount,jdbcType=DECIMAL},
+      loan_rate = #{loanRate,jdbcType=DECIMAL},
+      percent = #{percent,jdbcType=DECIMAL},
+      has_mortgage = #{hasMortgage,jdbcType=BIT},
+      min_number = #{minNumber,jdbcType=INTEGER},
+      max_number = #{maxNumber,jdbcType=INTEGER},
+      bid_award = #{bidAward,jdbcType=DECIMAL},
+      overdue_days = #{overdueDays,jdbcType=INTEGER},
+      loan_status = #{loanStatus,jdbcType=CHAR},
+      recommend = #{recommend,jdbcType=BIT},
+      project_image_path = #{projectImagePath,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      financing_days = #{financingDays,jdbcType=INTEGER},
+      guarantee_company = #{guaranteeCompany,jdbcType=VARCHAR},
+      guarantee_comment = #{guaranteeComment,jdbcType=VARCHAR},
+      mortgage_info = #{mortgageInfo,jdbcType=VARCHAR},
+      lawsuit_info = #{lawsuitInfo,jdbcType=VARCHAR},
+      money_purpose = #{moneyPurpose,jdbcType=VARCHAR},
+      repayment_source = #{repaymentSource,jdbcType=VARCHAR},
+      enterprise_background = #{enterpriseBackground,jdbcType=VARCHAR},
+      business_scope = #{businessScope,jdbcType=VARCHAR},
+      operating_conditions = #{operatingConditions,jdbcType=VARCHAR},
+      legal_name = #{legalName,jdbcType=VARCHAR},
+      legal_id = #{legalId,jdbcType=VARCHAR},
+      legal_no = #{legalNo,jdbcType=VARCHAR},
+      begin_date = #{beginDate,jdbcType=TIMESTAMP},
+      industry_type = #{industryType,jdbcType=VARCHAR},
+      review_date = #{reviewDate,jdbcType=TIMESTAMP},
+      credit_level = #{creditLevel,jdbcType=CHAR},
+      parent_loan_id = #{parentLoanId,jdbcType=VARCHAR},
+      payment_id = #{paymentId,jdbcType=VARCHAR},
+      loan_type = #{loanType,jdbcType=CHAR},
+      discount_amount = #{discountAmount,jdbcType=DECIMAL},
+      manage_fee = #{manageFee,jdbcType=DECIMAL},
+      loan_source_type_id = #{loanSourceTypeId,jdbcType=VARCHAR},
+      loan_source_type = #{loanSourceType,jdbcType=INTEGER},
+      borrow_company = #{borrowCompany,jdbcType=VARCHAR},
+      borrow_address = #{borrowAddress,jdbcType=VARCHAR},
+      borrow_mobile = #{borrowMobile,jdbcType=VARCHAR},
+      edu_type = #{eduType,jdbcType=INTEGER},
+      borrow_type = #{borrowType,jdbcType=INTEGER},
+      income_type = #{incomeType,jdbcType=INTEGER},
+      credit_limit = #{creditLimit,jdbcType=DECIMAL},
+      married_type = #{marriedType,jdbcType=INTEGER},
+      activity = #{activity,jdbcType=INTEGER},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      ticket_rule = #{ticketRule,jdbcType=INTEGER},
+      has_invest_security = #{hasInvestSecurity,jdbcType=BIT},
+      ump_user_id = #{umpUserId,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      grant_date = #{grantDate,jdbcType=TIMESTAMP},
+      hujinxh_product_code = #{hujinxhProductCode,jdbcType=VARCHAR},
+      payment_count = #{paymentCount,jdbcType=INTEGER},
+      day_rate = #{dayRate,jdbcType=DECIMAL},
+      loan_amount_available = #{loanAmountAvailable,jdbcType=DECIMAL},
+      drools_rules_id = #{droolsRulesId,jdbcType=VARCHAR},
+      risk_warning = #{riskWarning,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.learn.springboot.mapper.LotteryNumberMapper" >
+  <resultMap id="BaseResultMap" type="com.learn.springboot.entity.LotteryNumber" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="lottery_number1" property="lotteryNumber1" jdbcType="INTEGER" />
+    <result column="lottery_number2" property="lotteryNumber2" jdbcType="INTEGER" />
+    <result column="lottery_number3" property="lotteryNumber3" jdbcType="INTEGER" />
+    <result column="lottery_number4" property="lotteryNumber4" jdbcType="INTEGER" />
+    <result column="lottery_number5" property="lotteryNumber5" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, lottery_number1, lottery_number2, lottery_number3, lottery_number4, 
+    lottery_number5, type, create_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.learn.springboot.entity.LotteryNumberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lottery_number
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lottery_number
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lottery_number
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.learn.springboot.entity.LotteryNumberExample" >
+    delete from lottery_number
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.learn.springboot.entity.LotteryNumber" >
+    insert into lottery_number (id, user_id, lottery_number1, 
+      lottery_number2, lottery_number3, lottery_number4, 
+      lottery_number5, type, create_date
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{lotteryNumber1,jdbcType=INTEGER}, 
+      #{lotteryNumber2,jdbcType=INTEGER}, #{lotteryNumber3,jdbcType=INTEGER}, #{lotteryNumber4,jdbcType=INTEGER}, 
+      #{lotteryNumber5,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.learn.springboot.entity.LotteryNumber" >
+    insert into lottery_number
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="lotteryNumber1 != null" >
+        lottery_number1,
+      </if>
+      <if test="lotteryNumber2 != null" >
+        lottery_number2,
+      </if>
+      <if test="lotteryNumber3 != null" >
+        lottery_number3,
+      </if>
+      <if test="lotteryNumber4 != null" >
+        lottery_number4,
+      </if>
+      <if test="lotteryNumber5 != null" >
+        lottery_number5,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryNumber1 != null" >
+        #{lotteryNumber1,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryNumber2 != null" >
+        #{lotteryNumber2,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryNumber3 != null" >
+        #{lotteryNumber3,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryNumber4 != null" >
+        #{lotteryNumber4,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryNumber5 != null" >
+        #{lotteryNumber5,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.learn.springboot.entity.LotteryNumberExample" resultType="java.lang.Integer" >
+    select count(*) from lottery_number
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lottery_number
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lotteryNumber1 != null" >
+        lottery_number1 = #{record.lotteryNumber1,jdbcType=INTEGER},
+      </if>
+      <if test="record.lotteryNumber2 != null" >
+        lottery_number2 = #{record.lotteryNumber2,jdbcType=INTEGER},
+      </if>
+      <if test="record.lotteryNumber3 != null" >
+        lottery_number3 = #{record.lotteryNumber3,jdbcType=INTEGER},
+      </if>
+      <if test="record.lotteryNumber4 != null" >
+        lottery_number4 = #{record.lotteryNumber4,jdbcType=INTEGER},
+      </if>
+      <if test="record.lotteryNumber5 != null" >
+        lottery_number5 = #{record.lotteryNumber5,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lottery_number
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      lottery_number1 = #{record.lotteryNumber1,jdbcType=INTEGER},
+      lottery_number2 = #{record.lotteryNumber2,jdbcType=INTEGER},
+      lottery_number3 = #{record.lotteryNumber3,jdbcType=INTEGER},
+      lottery_number4 = #{record.lotteryNumber4,jdbcType=INTEGER},
+      lottery_number5 = #{record.lotteryNumber5,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.learn.springboot.entity.LotteryNumber" >
+    update lottery_number
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryNumber1 != null" >
+        lottery_number1 = #{lotteryNumber1,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryNumber2 != null" >
+        lottery_number2 = #{lotteryNumber2,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryNumber3 != null" >
+        lottery_number3 = #{lotteryNumber3,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryNumber4 != null" >
+        lottery_number4 = #{lotteryNumber4,jdbcType=INTEGER},
+      </if>
+      <if test="lotteryNumber5 != null" >
+        lottery_number5 = #{lotteryNumber5,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.learn.springboot.entity.LotteryNumber" >
+    update lottery_number
+    set user_id = #{userId,jdbcType=VARCHAR},
+      lottery_number1 = #{lotteryNumber1,jdbcType=INTEGER},
+      lottery_number2 = #{lotteryNumber2,jdbcType=INTEGER},
+      lottery_number3 = #{lotteryNumber3,jdbcType=INTEGER},
+      lottery_number4 = #{lotteryNumber4,jdbcType=INTEGER},
+      lottery_number5 = #{lotteryNumber5,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 自定义方法 -->
+  <select id="getTypeList" parameterType="map" resultMap="BaseResultMap">
+    select * from lottery_number where type = #{type}
+  </select>
+  <select id="getListByTypeAndUserId" parameterType="map" resultMap="BaseResultMap">
+    select * from lottery_number where user_id = #{userId} and type = #{type}
+  </select>
+</mapper>

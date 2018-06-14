@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.learn.springboot.mapper.LotteryResultRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.learn.springboot.entity.LotteryResultRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="lottery_id" property="lotteryId" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="active_category" property="activeCategory" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="giving_user_id" property="givingUserId" jdbcType="VARCHAR" />
+    <result column="award_name" property="awardName" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="img_url2" property="imgUrl2" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="isdiscount" property="isdiscount" jdbcType="INTEGER" />
+    <result column="discount_amount" property="discountAmount" jdbcType="DECIMAL" />
+    <result column="invest_total_amt" property="investTotalAmt" jdbcType="VARCHAR" />
+    <result column="invest_id" property="investId" jdbcType="VARCHAR" />
+    <result column="award_amount" property="awardAmount" jdbcType="DECIMAL" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, lottery_id, date, active_category, type, status, giving_user_id, award_name, 
+    img_url, img_url2, number, isdiscount, discount_amount, invest_total_amt, invest_id, 
+    award_amount, source
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.learn.springboot.entity.LotteryResultRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lottery_result_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lottery_result_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lottery_result_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.learn.springboot.entity.LotteryResultRecordExample" >
+    delete from lottery_result_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.learn.springboot.entity.LotteryResultRecord" >
+    insert into lottery_result_record (id, user_id, lottery_id, 
+      date, active_category, type, 
+      status, giving_user_id, award_name, 
+      img_url, img_url2, number, 
+      isdiscount, discount_amount, invest_total_amt, 
+      invest_id, award_amount, source
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{lotteryId,jdbcType=INTEGER}, 
+      #{date,jdbcType=TIMESTAMP}, #{activeCategory,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{givingUserId,jdbcType=VARCHAR}, #{awardName,jdbcType=VARCHAR}, 
+      #{imgUrl,jdbcType=VARCHAR}, #{imgUrl2,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
+      #{isdiscount,jdbcType=INTEGER}, #{discountAmount,jdbcType=DECIMAL}, #{investTotalAmt,jdbcType=VARCHAR}, 
+      #{investId,jdbcType=VARCHAR}, #{awardAmount,jdbcType=DECIMAL}, #{source,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.learn.springboot.entity.LotteryResultRecord" >
+    insert into lottery_result_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="lotteryId != null" >
+        lottery_id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="activeCategory != null" >
+        active_category,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="givingUserId != null" >
+        giving_user_id,
+      </if>
+      <if test="awardName != null" >
+        award_name,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="imgUrl2 != null" >
+        img_url2,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="isdiscount != null" >
+        isdiscount,
+      </if>
+      <if test="discountAmount != null" >
+        discount_amount,
+      </if>
+      <if test="investTotalAmt != null" >
+        invest_total_amt,
+      </if>
+      <if test="investId != null" >
+        invest_id,
+      </if>
+      <if test="awardAmount != null" >
+        award_amount,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryId != null" >
+        #{lotteryId,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activeCategory != null" >
+        #{activeCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="givingUserId != null" >
+        #{givingUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="awardName != null" >
+        #{awardName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl2 != null" >
+        #{imgUrl2,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="isdiscount != null" >
+        #{isdiscount,jdbcType=INTEGER},
+      </if>
+      <if test="discountAmount != null" >
+        #{discountAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="investTotalAmt != null" >
+        #{investTotalAmt,jdbcType=VARCHAR},
+      </if>
+      <if test="investId != null" >
+        #{investId,jdbcType=VARCHAR},
+      </if>
+      <if test="awardAmount != null" >
+        #{awardAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.learn.springboot.entity.LotteryResultRecordExample" resultType="java.lang.Integer" >
+    select count(*) from lottery_result_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lottery_result_record
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lotteryId != null" >
+        lottery_id = #{record.lotteryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.activeCategory != null" >
+        active_category = #{record.activeCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.givingUserId != null" >
+        giving_user_id = #{record.givingUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.awardName != null" >
+        award_name = #{record.awardName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgUrl != null" >
+        img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgUrl2 != null" >
+        img_url2 = #{record.imgUrl2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null" >
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.isdiscount != null" >
+        isdiscount = #{record.isdiscount,jdbcType=INTEGER},
+      </if>
+      <if test="record.discountAmount != null" >
+        discount_amount = #{record.discountAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.investTotalAmt != null" >
+        invest_total_amt = #{record.investTotalAmt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.investId != null" >
+        invest_id = #{record.investId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.awardAmount != null" >
+        award_amount = #{record.awardAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lottery_result_record
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      lottery_id = #{record.lotteryId,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=TIMESTAMP},
+      active_category = #{record.activeCategory,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      giving_user_id = #{record.givingUserId,jdbcType=VARCHAR},
+      award_name = #{record.awardName,jdbcType=VARCHAR},
+      img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      img_url2 = #{record.imgUrl2,jdbcType=VARCHAR},
+      number = #{record.number,jdbcType=INTEGER},
+      isdiscount = #{record.isdiscount,jdbcType=INTEGER},
+      discount_amount = #{record.discountAmount,jdbcType=DECIMAL},
+      invest_total_amt = #{record.investTotalAmt,jdbcType=VARCHAR},
+      invest_id = #{record.investId,jdbcType=VARCHAR},
+      award_amount = #{record.awardAmount,jdbcType=DECIMAL},
+      source = #{record.source,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.learn.springboot.entity.LotteryResultRecord" >
+    update lottery_result_record
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryId != null" >
+        lottery_id = #{lotteryId,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activeCategory != null" >
+        active_category = #{activeCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="givingUserId != null" >
+        giving_user_id = #{givingUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="awardName != null" >
+        award_name = #{awardName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl2 != null" >
+        img_url2 = #{imgUrl2,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="isdiscount != null" >
+        isdiscount = #{isdiscount,jdbcType=INTEGER},
+      </if>
+      <if test="discountAmount != null" >
+        discount_amount = #{discountAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="investTotalAmt != null" >
+        invest_total_amt = #{investTotalAmt,jdbcType=VARCHAR},
+      </if>
+      <if test="investId != null" >
+        invest_id = #{investId,jdbcType=VARCHAR},
+      </if>
+      <if test="awardAmount != null" >
+        award_amount = #{awardAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.learn.springboot.entity.LotteryResultRecord" >
+    update lottery_result_record
+    set user_id = #{userId,jdbcType=VARCHAR},
+      lottery_id = #{lotteryId,jdbcType=INTEGER},
+      date = #{date,jdbcType=TIMESTAMP},
+      active_category = #{activeCategory,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      giving_user_id = #{givingUserId,jdbcType=VARCHAR},
+      award_name = #{awardName,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      img_url2 = #{imgUrl2,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      isdiscount = #{isdiscount,jdbcType=INTEGER},
+      discount_amount = #{discountAmount,jdbcType=DECIMAL},
+      invest_total_amt = #{investTotalAmt,jdbcType=VARCHAR},
+      invest_id = #{investId,jdbcType=VARCHAR},
+      award_amount = #{awardAmount,jdbcType=DECIMAL},
+      source = #{source,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 自定义方法 -->
+  <select id="getListByUserIdAndLotteryId" parameterType="map" resultType="com.learn.springboot.entity.LotteryResultRecord">
+    select * from lottery_result_record where user_id = #{userId} and lottery_id = #{lotteryId}
+  </select>
+</mapper>
