@@ -19,7 +19,7 @@ public class LotteryResultRecordService {
 	private LotteryResultRecordMapper lotteryResultRecordMapper;
 
 	public PageInfo<LotteryResultRecord> getPage(JSONObject jsonObject) {
-		Integer pageNum = jsonObject.getInteger("pageNum"); 
+		Integer pageNum = jsonObject.getInteger("pageNum");
 		Integer pageSize = jsonObject.getInteger("pageSize");
 		PageHelper.startPage(pageNum == null ? 1 : pageNum, pageSize == null ? 10 : pageSize);
 		List<LotteryResultRecord> list = lotteryResultRecordMapper.selectByExample(null);

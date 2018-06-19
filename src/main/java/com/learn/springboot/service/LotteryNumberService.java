@@ -24,7 +24,7 @@ public class LotteryNumberService {
 	}
 
 	public PageInfo<LotteryNumber> getPage(JSONObject jsonObject) throws Exception {
-		Integer pageNum = jsonObject.getInteger("pageNum"); 
+		Integer pageNum = jsonObject.getInteger("pageNum");
 		Integer pageSize = jsonObject.getInteger("pageSize");
 		PageHelper.startPage(pageNum == null ? 1 : pageNum, pageSize == null ? 10 : pageSize);
 		List<LotteryNumber> list = lotteryNumberMapper.selectByExample(null);
