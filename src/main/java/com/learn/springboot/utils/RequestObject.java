@@ -7,9 +7,12 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
 import com.alibaba.fastjson.JSONObject;
 
 public class RequestObject<T> {
+	private static final Logger logger = Logger.getLogger(RequestObject.class);
 	Class<T> c;
 
 	public static <T> T getObject(HttpServletRequest request, Class<T> c) {
@@ -17,9 +20,9 @@ public class RequestObject<T> {
 		try {
 			t = c.newInstance(); // 实例化参数对象
 		} catch (InstantiationException e1) {
-			e1.printStackTrace();
+			logger.error(e1.getMessage(), e1);
 		} catch (IllegalAccessException e1) {
-			e1.printStackTrace();
+			logger.error(e1.getMessage(), e1);
 		}
 
 		// 根据对象的set方法的参数类型去将请求的值做相应转换
@@ -27,30 +30,30 @@ public class RequestObject<T> {
 		Set<String> set = jsonObject.keySet();// 得到所有post参数
 		Enumeration e = request.getParameterNames(); // 所有请求get参数
 		Method[] methods = c.getDeclaredMethods(); // 参数对象的所有方法
-		if(e.hasMoreElements()){
+		if (e.hasMoreElements()) {
 			while (e.hasMoreElements()) {
 				String paramName = e.nextElement().toString();
-				String setParamName = reverseParamName(paramName); //将参数名字转换成set方法名字，如：id 转换成 setId
+				String setParamName = reverseParamName(paramName); // 将参数名字转换成set方法名字，如：id 转换成 setId
 				for (Method method : methods) {
 					if (setParamName.equals(method.getName())) {
 						try {
-							Class<?> paramType = (method.getParameterTypes())[0]; //得到set方法参数类型
+							Class<?> paramType = (method.getParameterTypes())[0]; // 得到set方法参数类型
 							String value = request.getParameter(paramName);
-							adapter(t, method, paramType, value); //通过适配器将值注入进POJO里面
+							adapter(t, method, paramType, value); // 通过适配器将值注入进POJO里面
 						} catch (IllegalArgumentException e1) {
-							e1.printStackTrace();
+							logger.error(e1.getMessage(), e1);
 						} catch (IllegalAccessException e1) {
-							e1.printStackTrace();
+							logger.error(e1.getMessage(), e1);
 						} catch (InvocationTargetException e1) {
-							e1.printStackTrace();
+							logger.error(e1.getMessage(), e1);
 						} catch (SecurityException e1) {
-							e1.printStackTrace();
+							logger.error(e1.getMessage(), e1);
 						}
 					}
 				}
 			}
 		}
-		if(set.size()>0){
+		if (set.size() > 0) {
 			for (String paramName : set) {
 				System.out.println(paramName);
 				String setParamName = reverseParamName(paramName); // 将参数名字转换成set方法名字，如：id 转换成 setId
@@ -61,13 +64,13 @@ public class RequestObject<T> {
 							String value = jsonObject.getString(paramName);
 							adapter(t, method, paramType, value); // 通过适配器将值注入进POJO里面
 						} catch (IllegalArgumentException e1) {
-							e1.printStackTrace();
+							logger.error(e1.getMessage(), e1);
 						} catch (IllegalAccessException e1) {
-							e1.printStackTrace();
+							logger.error(e1.getMessage(), e1);
 						} catch (InvocationTargetException e1) {
-							e1.printStackTrace();
+							logger.error(e1.getMessage(), e1);
 						} catch (SecurityException e1) {
-							e1.printStackTrace();
+							logger.error(e1.getMessage(), e1);
 						}
 					}
 				}

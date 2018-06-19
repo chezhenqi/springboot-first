@@ -32,7 +32,7 @@ import com.learn.springboot.utils.OperateResult;
 @RestController
 @RequestMapping("/main")
 public class MainController {
-	private Logger logger = Logger.getLogger(MainController.class);
+	private static final Logger logger = Logger.getLogger(MainController.class);
 	@Autowired
 	private InvestService investService;
 	@Autowired
@@ -70,7 +70,7 @@ public class MainController {
 			map.put("lotteryResultRecords", lotteryResultRecords);
 			return new OperateResult(map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 			return new OperateResult(e.getMessage());
 		}
 	}
@@ -110,7 +110,7 @@ public class MainController {
 			result.put("resultList", resultlist);
 			return result;
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 			return null;
 		}
 	}
