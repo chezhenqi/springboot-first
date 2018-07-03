@@ -3,7 +3,6 @@ package com.learn.springboot.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-@SuppressWarnings(value = { "unchecked", "rawtypes" })
 public class ResultBean extends HashMap<String, Object> {
 
 	/**
